@@ -13,7 +13,7 @@ In addition, we provide tutorials and other educational content to help you get 
 
 [**Video Tutorial**](https://www.youtube.com/watch?v=oSA1bP_j41w)
 
-[![Neuron & Inspector](./docs/images/youtube.png)](https://www.youtube.com/watch?v=oSA1bP_j41w)
+[![Neuron & Inspector](./docs/youtube.png)](https://www.youtube.com/watch?v=oSA1bP_j41w)
 
 ---
 

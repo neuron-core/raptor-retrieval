@@ -32,7 +32,7 @@ composer require neuron-core/neuron-raptor-retreival
 
 ## How to use in your agent
 
-Or use the RAPTOR component directly into the agent. RAPTOR needs a vector store, an embeddings provider and uses an LLM
+Or use the RAPTOR component directly into the agent. RAPTOR needs a vector store, an embedding provider and uses an LLM
 to perform the summarization:
 
 ```php

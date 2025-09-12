@@ -22,7 +22,7 @@ In addition, we provide tutorials and other educational content to help you get 
 - PHP: ^8.1
 - Neuron: ^2.0
 
-## Install
+## Install RAPTOR retrieval
 
 Install the latest version of the package:
 

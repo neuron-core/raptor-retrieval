@@ -42,10 +42,10 @@ use NeuronAI\RAG\VectorStore\VectorStoreInterface;
 class RaptorRetrieval implements RetrievalInterface
 {
     public function __construct(
-        private readonly VectorStoreInterface $vectorStore,
-        private readonly EmbeddingsProviderInterface $embeddingProvider,
-        private readonly AIProviderInterface $summarizationProvider,
-        private readonly ClusteringInterface $clustering = new SimilarityClustering(),
+        protected readonly VectorStoreInterface $vectorStore,
+        protected readonly EmbeddingsProviderInterface $embeddingProvider,
+        protected readonly AIProviderInterface $summarizationProvider,
+        protected readonly ClusteringInterface $clustering = new SimilarityClustering(),
     ) {
     }
 
@@ -226,7 +226,7 @@ class RaptorRetrieval implements RetrievalInterface
     private function convertNodeToDocument(TreeNode $node): Document
     {
         // If it's an original document, return it
-        if ($node->originalDocument instanceof \NeuronAI\RAG\Document) {
+        if ($node->originalDocument instanceof Document) {
             return $node->originalDocument;
         }
 

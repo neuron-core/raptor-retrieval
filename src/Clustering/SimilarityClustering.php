@@ -10,8 +10,8 @@ use NeuronAI\Raptor\TreeNode;
 class SimilarityClustering implements ClusteringInterface
 {
     public function __construct(
-        private readonly float $similarityThreshold = 0.7,
-        private readonly int $maxClusterSize = 8
+        protected readonly float $similarityThreshold = 0.7,
+        protected readonly int $maxClusterSize = 8
     ) {
     }
 
@@ -25,7 +25,7 @@ class SimilarityClustering implements ClusteringInterface
         $used = \array_fill(0, \count($nodes), false);
         $counter = \count($nodes);
 
-        for ($i = 0; $i < $counter; $i++) {
+        for ($i = 0; $i < $counter; ++$i) {
             if ($used[$i]) {
                 continue;
             }
@@ -34,7 +34,7 @@ class SimilarityClustering implements ClusteringInterface
             $used[$i] = true;
 
             // Find similar nodes for this cluster
-            for ($j = $i + 1; $j < \count($nodes); $j++) {
+            for ($j = $i + 1; $j < \count($nodes); ++$j) {
                 if ($used[$j]) {
                     continue;
                 }
@@ -45,7 +45,7 @@ class SimilarityClustering implements ClusteringInterface
                         $nodes[$j]->embedding
                     );
 
-                    // If similar enough and cluster not too big, add to cluster
+                    // If similar enough and the cluster not too big, add to the cluster
                     if ($similarity > $this->similarityThreshold && \count($cluster) < $this->maxClusterSize) {
                         $cluster[] = $nodes[$j];
                         $used[$j] = true;

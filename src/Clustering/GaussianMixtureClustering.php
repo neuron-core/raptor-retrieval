@@ -16,11 +16,11 @@ use NeuronAI\Raptor\TreeNode;
 class GaussianMixtureClustering implements ClusteringInterface
 {
     public function __construct(
-        private readonly int $maxClusters = 10,
-        private readonly int $maxIterations = 100,
-        private readonly int $minClusterSize = 2,
-        private readonly int $maxClusterSize = 8,
-        private readonly bool $useUMAP = false, // For future UMAP integration
+        protected readonly int $maxClusters = 10,
+        protected readonly int $maxIterations = 100,
+        protected readonly int $minClusterSize = 2,
+        protected readonly int $maxClusterSize = 8,
+        protected readonly bool $useUMAP = false, // For future UMAP integration
     ) {
     }
 
@@ -52,12 +52,6 @@ class GaussianMixtureClustering implements ClusteringInterface
         return $this->groupNodesByAssignments($nodes, $assignments);
     }
 
-    public function setConfiguration(array $config): ClusteringInterface
-    {
-        // Configuration is set via constructor for this implementation
-        return $this;
-    }
-
     /**
      * Find the optimal number of clusters using Bayesian Information Criterion (BIC).
      *
@@ -68,7 +62,7 @@ class GaussianMixtureClustering implements ClusteringInterface
         $bestK = 1;
         $bestBIC = \PHP_FLOAT_MAX;
 
-        for ($k = 1; $k <= \min($this->maxClusters, \count($embeddings)); $k++) {
+        for ($k = 1; $k <= \min($this->maxClusters, \count($embeddings)); ++$k) {
             $bic = $this->calculateBIC($embeddings, $k);
 
             if ($bic < $bestBIC) {
@@ -167,11 +161,11 @@ class GaussianMixtureClustering implements ClusteringInterface
             $oldAssignments = $assignments;
 
             // Assignment step
-            for ($i = 0; $i < $n; $i++) {
+            for ($i = 0; $i < $n; ++$i) {
                 $bestDistance = \PHP_FLOAT_MAX;
                 $bestCluster = 0;
 
-                for ($j = 0; $j < $k; $j++) {
+                for ($j = 0; $j < $k; ++$j) {
                     $distance = $this->euclideanDistance($embeddings[$i], $centroids[$j]);
                     if ($distance < $bestDistance) {
                         $bestDistance = $distance;
@@ -184,7 +178,7 @@ class GaussianMixtureClustering implements ClusteringInterface
 
             // Update centroids
             $clusters = $this->groupEmbeddingsByAssignments($embeddings, $assignments, $k);
-            for ($j = 0; $j < $k; $j++) {
+            for ($j = 0; $j < $k; ++$j) {
                 if (!empty($clusters[$j])) {
                     $centroids[$j] = $this->calculateCentroid($clusters[$j]);
                 }
@@ -234,7 +228,7 @@ class GaussianMixtureClustering implements ClusteringInterface
         $clusters = \array_fill(0, $k, []);
         $counter = \count($embeddings);
 
-        for ($i = 0; $i < $counter; $i++) {
+        for ($i = 0; $i < $counter; ++$i) {
             $clusters[$assignments[$i]][] = $embeddings[$i];
         }
 
@@ -251,7 +245,7 @@ class GaussianMixtureClustering implements ClusteringInterface
         $clusters = [];
         $counter = \count($nodes);
 
-        for ($i = 0; $i < $counter; $i++) {
+        for ($i = 0; $i < $counter; ++$i) {
             $clusterIndex = $assignments[$i];
             if (!isset($clusters[$clusterIndex])) {
                 $clusters[$clusterIndex] = [];
@@ -287,7 +281,7 @@ class GaussianMixtureClustering implements ClusteringInterface
     {
         $sum = 0.0;
         $counter = \count($embedding1);
-        for ($i = 0; $i < $counter; $i++) {
+        for ($i = 0; $i < $counter; ++$i) {
             $diff = $embedding1[$i] - $embedding2[$i];
             $sum += $diff * $diff;
         }
@@ -308,7 +302,7 @@ class GaussianMixtureClustering implements ClusteringInterface
         $centroid = \array_fill(0, $dimensions, 0.0);
 
         foreach ($embeddings as $embedding) {
-            for ($i = 0; $i < $dimensions; $i++) {
+            for ($i = 0; $i < $dimensions; ++$i) {
                 $centroid[$i] += $embedding[$i];
             }
         }

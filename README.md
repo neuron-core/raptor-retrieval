@@ -88,9 +88,8 @@ Groups documents with clear thematic boundaries. Best for already well-organized
 **Use Similarity Clustering when:**
 
 - You have heterogeneous content with clear topic boundaries
-- You want predictable, consistent clustering behavior
-- Performance is important (faster processing)
 - Your documents have distinct themes that don't overlap much
+- Performance is important (faster processing)
 
 ```php
 use NeuronAI\RAG\Retrieval\RetrievalInterface;

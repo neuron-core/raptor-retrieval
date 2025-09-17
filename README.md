@@ -18,6 +18,8 @@ Most retrieval-augmented models work by breaking down documents into small chunk
 - Users primarily need quick, specific fact retrieval
 - Processing speed and token efficiency are critical constraints
 
+You can read the full paper here: https://arxiv.org/html/2401.18059v1
+
 ## What is Neuron?
 
 Neuron is a PHP framework for creating and orchestrating AI Agents. It allows you to integrate AI entities in your existing

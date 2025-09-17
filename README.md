@@ -2,11 +2,12 @@
 
 This module implements the RAPTOR retreival strategy for the Neuron PHP AI framework.
 
-## When Standard RAG Isn't Enough
+## The Problem with Traditional Retrieval
 
-Traditional RAG systems excel at finding specific information but struggle with queries that need both detailed facts and broader context.
-If your application handles complex questions where users need comprehensive understanding rather than just the most similar chunks, RAPTOR addresses this gap.
-This means your LLM gets both the precise facts and the contextual understanding needed for nuanced responses.
+Most retrieval-augmented models work by breaking down documents into small chunks and retrieving only the most relevant ones. However, this approach has some limitations:
+
+- **Loss of Context**: Retrieving only small, isolated chunks may miss the bigger picture especially for documents with long contexts.
+- **Difficulty in Multi-Step Reasoning**: Some questions require information from multiple sections of a document.
 
 **Use RAPTOR when:**
 - Users ask open-ended questions that require comprehensive coverage

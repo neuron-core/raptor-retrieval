@@ -2,6 +2,21 @@
 
 This module implements the RAPTOR retreival strategy for the Neuron PHP AI framework.
 
+## When Standard RAG Isn't Enough
+
+Traditional RAG systems excel at finding specific information but struggle with queries that need both detailed facts and broader context.
+If your application handles complex questions where users need comprehensive understanding rather than just the most similar chunks, RAPTOR addresses this gap.
+This means your LLM gets both the precise facts and the contextual understanding needed for nuanced responses.
+
+**Use RAPTOR when:**
+- Users ask open-ended questions that require comprehensive coverage
+- Your domain involves complex topics where context matters as much as facts
+- You need to handle queries about themes, trends, or relationships across documents
+
+**Stick with traditional RAG when:**
+- Users primarily need quick, specific fact retrieval
+- Processing speed and token efficiency are critical constraints
+
 ## What is Neuron?
 
 Neuron is a PHP framework for creating and orchestrating AI Agents. It allows you to integrate AI entities in your existing
@@ -30,7 +45,7 @@ Install the latest version of the package:
 composer require neuron-core/neuron-raptor-retreival
 ```
 
-## How to use in your agent
+## How to use RAPTOR in your agent
 
 Or use the RAPTOR component directly into the agent. RAPTOR needs a vector store, an embedding provider and uses an LLM
 to perform the summarization:
@@ -64,12 +79,18 @@ class WorkoutTipsAgent extends RAG
 
 ## Clustering strategy
 
-RAPTOR algorithm uses a clustering strategy to group the retrieved documents into clusters. There two common clustering strategies
-you can use based on your scenario:
+RAPTOR algorithm uses a clustering strategy to group the retrieved documents into clusters. Choose based on your content characteristics:
 
 ### Similarity Clustering (default)
 
-This strategy groups the retrieved documents based on their similarity.
+Groups documents with clear thematic boundaries. Best for already well-organized content with distinct topics.
+
+**Use Similarity Clustering when:**
+
+- You have heterogeneous content with clear topic boundaries
+- You want predictable, consistent clustering behavior
+- Performance is important (faster processing)
+- Your documents have distinct themes that don't overlap much
 
 ```php
 use NeuronAI\RAG\Retrieval\RetrievalInterface;
@@ -102,8 +123,14 @@ class WorkoutTipsAgent extends RAG
 
 ### Gaussian Mixture Clustering
 
-Unlike hard clustering methods such as K-Means, which assign each point to a single cluster based on the closest centroid,
-GMM performs soft clustering by assigning each point a probability of belonging to multiple clusters.
+Handles overlapping topics where documents may belong to multiple themes simultaneously.
+Useful for research papers, news articles, or any content where topics naturally blend together rather than having sharp boundaries.
+
+**Use GMM when:**
+
+- Documents may relate to multiple topics simultaneously
+- You want the algorithm to discover the "natural" number of clusters in your data
+- You're dealing with research papers, news, or complex content where topics blend
 
 ```php
 use NeuronAI\RAG\Retrieval\RetrievalInterface;

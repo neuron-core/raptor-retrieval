@@ -132,7 +132,7 @@ Useful for research papers, news articles, or any content where topics naturally
 
 - Documents may relate to multiple topics simultaneously
 - You want the algorithm to discover the "natural" number of clusters in your data
-- You're dealing with research papers, news, or complex content where topics blend
+- You're dealing with research papers, news, or complex content where multiple topics blend
 
 ```php
 use NeuronAI\RAG\Retrieval\RetrievalInterface;

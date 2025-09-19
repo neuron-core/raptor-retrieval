@@ -1,5 +1,5 @@
 {
-    "name": "neuron-core/neuron-raptor-retrieval",
+    "name": "neuron-core/raptor-retrieval",
     "description": "Recursive Abstractive Processing for Tree-Organized Retrieval",
     "minimum-stability": "stable",
     "authors": [

@@ -45,7 +45,7 @@ In addition, we provide tutorials and other educational content to help you get 
 Install the latest version of the package:
 
 ```
-composer require neuron-core/neuron-raptor-retreival
+composer require neuron-core/raptor-retreival
 ```
 
 ## How to use RAPTOR in your agent

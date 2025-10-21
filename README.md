@@ -18,7 +18,7 @@ Most retrieval-augmented models work by breaking down documents into small chunk
 - Users primarily need quick, specific fact retrieval
 - Processing speed and token efficiency are critical constraints
 
-You can read the full paper here: https://arxiv.org/html/2401.18059v1
+Check out the example in the [examples](./examples/raptor.php) folder.
 
 ## What is Neuron?
 

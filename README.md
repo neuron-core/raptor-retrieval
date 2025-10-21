@@ -55,7 +55,7 @@ to perform the summarization:
 
 ```php
 use NeuronAI\RAG\Retrieval\RetrievalInterface;
-use NeuronAI\Raptor\RaptorRetrieval;
+use NeuronCore\RaptorRetrieval\RaptorRetrieval;
 
 class WorkoutTipsAgent extends RAG
 {
@@ -96,8 +96,8 @@ Groups documents with clear thematic boundaries. Best for already well-organized
 
 ```php
 use NeuronAI\RAG\Retrieval\RetrievalInterface;
-use NeuronAI\Raptor\RaptorRetrieval;
-use NeuronAI\Raptor\Clustering\SimilarityClusteringStrategy;
+use NeuronCore\RaptorRetrieval\RaptorRetrieval;
+use NeuronCore\RaptorRetrieval\Clustering\SimilarityClustering;
 
 class WorkoutTipsAgent extends RAG
 {
@@ -107,7 +107,7 @@ class WorkoutTipsAgent extends RAG
             $this->resolveVectorStore(),
             $this->resolveEmbeddingsProvider(),
             $this->resolveProvider(), // Used for summarization
-            new SimilarityClusteringStrategy()
+            new SimilarityClustering()
         );
     }
 
@@ -136,8 +136,8 @@ Useful for research papers, news articles, or any content where topics naturally
 
 ```php
 use NeuronAI\RAG\Retrieval\RetrievalInterface;
-use NeuronAI\Raptor\RaptorRetrieval;
-use NeuronAI\Raptor\Clustering\GaussianMixtureClustering;
+use NeuronCore\RaptorRetrieval\RaptorRetrieval;
+use NeuronCore\RaptorRetrieval\Clustering\GaussianMixtureClustering;
 
 class WorkoutTipsAgent extends RAG
 {

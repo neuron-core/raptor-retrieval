@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace NeuronAI\Raptor;
+namespace NeuronCore\RaptorRetrieval;
 
 use NeuronAI\RAG\Document;
 

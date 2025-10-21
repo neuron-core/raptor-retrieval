@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace NeuronAI\Raptor;
+namespace NeuronCore\RaptorRetrieval;
 
 use NeuronAI\Chat\Messages\Message;
 use NeuronAI\Chat\Messages\UserMessage;
 use NeuronAI\Providers\AIProviderInterface;
 use NeuronAI\RAG\Document;
 use NeuronAI\RAG\Embeddings\EmbeddingsProviderInterface;
-use NeuronAI\Raptor\Clustering\ClusteringInterface;
-use NeuronAI\Raptor\Clustering\SimilarityClustering;
+use NeuronCore\RaptorRetrieval\Clustering\ClusteringInterface;
+use NeuronCore\RaptorRetrieval\Clustering\SimilarityClustering;
 use NeuronAI\RAG\Retrieval\RetrievalInterface;
 use NeuronAI\RAG\VectorSimilarity;
 use NeuronAI\RAG\VectorStore\VectorStoreInterface;

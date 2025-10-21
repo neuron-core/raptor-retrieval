@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace NeuronAI\Raptor\Tests;
 
 use NeuronAI\RAG\Document;
-use NeuronAI\Raptor\TreeNode;
+use NeuronCore\RaptorRetrieval\TreeNode;
 use PHPUnit\Framework\TestCase;
 
 class TreeNodeTest extends TestCase

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace NeuronAI\Raptor\Tests;
+namespace NeuronCore\RaptorRetrieval\Tests;
 
 use NeuronAI\Chat\Messages\AssistantMessage;
 use NeuronAI\Chat\Messages\UserMessage;
@@ -10,8 +10,8 @@ use NeuronAI\Providers\AIProviderInterface;
 use NeuronAI\RAG\Document;
 use NeuronAI\RAG\Embeddings\EmbeddingsProviderInterface;
 use NeuronAI\RAG\VectorStore\VectorStoreInterface;
-use NeuronAI\Raptor\Clustering\ClusteringInterface;
-use NeuronAI\Raptor\RaptorRetrieval;
+use NeuronCore\RaptorRetrieval\Clustering\ClusteringInterface;
+use NeuronCore\RaptorRetrieval\RaptorRetrieval;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

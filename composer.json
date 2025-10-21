@@ -11,7 +11,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
-        "neuron-core/neuron-ai": "^2.0"
+        "neuron-core/neuron-ai": "^2.6"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.75",
@@ -42,12 +42,12 @@
     },
     "autoload": {
         "psr-4": {
-            "NeuronAI\\Raptor\\": "src/"
+            "NeuronCore\\RaptorRetrieval\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "NeuronAI\\Raptor\\Tests\\": "tests/"
+            "NeuronCore\\RaptorRetrieval\\Tests\\": "tests/"
         }
     },
     "config": {

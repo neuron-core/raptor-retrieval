@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace NeuronAI\Raptor\Clustering;
+namespace NeuronCore\RaptorRetrieval\Clustering;
 
-use NeuronAI\Raptor\TreeNode;
+use NeuronCore\RaptorRetrieval\TreeNode;
 
 interface ClusteringInterface
 {

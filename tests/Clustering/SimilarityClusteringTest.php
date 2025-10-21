@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace NeuronAI\Raptor\Tests\Clustering;
+namespace NeuronCore\RaptorRetrieval\Tests\Clustering;
 
-use NeuronAI\Raptor\Clustering\SimilarityClustering;
-use NeuronAI\Raptor\TreeNode;
+use NeuronCore\RaptorRetrieval\Clustering\SimilarityClustering;
+use NeuronCore\RaptorRetrieval\TreeNode;
 use PHPUnit\Framework\TestCase;
 
 class SimilarityClusteringTest extends TestCase

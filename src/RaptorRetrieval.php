@@ -228,7 +228,6 @@ class RaptorRetrieval implements RetrievalInterface
         return $nodes;
     }
 
-
     private function convertNodeToDocument(TreeNode $node): Document
     {
         // If it's an original document, return it
@@ -245,5 +244,4 @@ class RaptorRetrieval implements RetrievalInterface
 
         return $document;
     }
-
 }

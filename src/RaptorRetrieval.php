@@ -118,6 +118,12 @@ class RaptorRetrieval implements RetrievalInterface
             $nextLevel[] = $summaryNode;
         }
 
+        // Prevent infinite recursion: if clustering didn't reduce the number of nodes,
+        // it means all nodes are single-node clusters and we've reached the top level
+        if (\count($nextLevel) === \count($nodes)) {
+            return $nextLevel;
+        }
+
         return $this->buildTreeRecursively($nextLevel);
     }
 

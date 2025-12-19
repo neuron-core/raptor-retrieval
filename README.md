@@ -1,12 +1,12 @@
 # Recursive Abstractive Processing for Tree-Organized Retrieval
 
-This module implements the RAPTOR retreival strategy for the Neuron PHP AI framework.
+This module implements the RAPTOR retrieval strategy for the [Neuron PHP AI framework](https://neuron-ai.dev).
 
 ## The Problem with Traditional Retrieval
 
 Most retrieval-augmented models work by breaking down documents into small chunks and retrieving only the most relevant ones. However, this approach has some limitations:
 
-- **Loss of Context**: Retrieving only small, isolated chunks may miss the bigger picture especially for documents with long contexts.
+- **Loss of Context**: Retrieving only small, isolated chunks may miss the bigger picture, especially for documents with long contexts.
 - **Difficulty in Multi-Step Reasoning**: Some questions require information from multiple sections of a document.
 
 **Use RAPTOR when:**
@@ -19,21 +19,6 @@ Most retrieval-augmented models work by breaking down documents into small chunk
 - Processing speed and token efficiency are critical constraints
 
 Check out the example in the [examples](./examples/raptor.php) folder.
-
-## What is Neuron?
-
-Neuron is a PHP framework for creating and orchestrating AI Agents. It allows you to integrate AI entities in your existing
-PHP applications with a powerful and flexible architecture. We provide tools for the entire agentic application development lifecycle,
-from LLM interfaces, to data loading, to multi-agent orchestration, to monitoring and debugging.
-In addition, we provide tutorials and other educational content to help you get started using AI Agents in your projects.
-
-**[Go to the official documentation](https://neuron.inspector.dev/)**
-
-[**Video Tutorial**](https://www.youtube.com/watch?v=oSA1bP_j41w)
-
-[![Neuron & Inspector](./docs/youtube.png)](https://www.youtube.com/watch?v=oSA1bP_j41w)
-
----
 
 ## Requirements
 
@@ -162,3 +147,16 @@ class WorkoutTipsAgent extends RAG
     }
 }
 ```
+
+## What is Neuron?
+
+Neuron is a PHP framework for creating and orchestrating AI Agents. It allows you to integrate AI entities in your existing
+PHP applications with a powerful and flexible architecture. We provide tools for the entire agentic application development lifecycle,
+from LLM interfaces, to data loading, to multi-agent orchestration, to monitoring and debugging.
+In addition, we provide tutorials and other educational content to help you get started using AI Agents in your projects.
+
+**[Go to the official documentation](https://neuron.inspector.dev/)**
+
+[**Video Tutorial**](https://www.youtube.com/watch?v=oSA1bP_j41w)
+
+[![Neuron & Inspector](./docs/youtube.png)](https://www.youtube.com/watch?v=oSA1bP_j41w)

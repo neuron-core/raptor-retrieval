@@ -24,10 +24,14 @@
         "analyse": [
             "vendor/bin/phpstan analyse --memory-limit=1G -v"
         ],
-        "format": [
+        "style": [
             "php-cs-fixer fix --allow-risky=yes"
         ],
-        "refactor": [
+        "rector": [
+            "vendor/bin/rector"
+        ],
+        "format": [
+            "php-cs-fixer fix --allow-risky=yes",
             "vendor/bin/rector"
         ],
         "test": [
@@ -36,8 +40,9 @@
     },
     "scripts-descriptions": {
         "analyse": "Run PHPStan static analysis against your application.",
-        "format": "Run PHP CS Fixer against your application.",
-		"refactor": "Run rector for code refactoring.",
+        "style": "Run PHP CS Fixer against your application.",
+        "rector": "Run rector for code refactoring.",
+        "format": "Run style and rector in one step.",
         "test": "Run PHPUnit to test"
     },
     "autoload": {

@@ -159,9 +159,9 @@ class RaptorRetrieval implements RetrievalInterface
 
     private function generateSummary(string $content): string
     {
-        $response = $this->summarizationProvider->chat([
+        $response = $this->summarizationProvider->chat(
             new UserMessage("Summarize the following text, capturing the key information and themes:\n\n{$content}"),
-        ]);
+        );
 
         return $response->getContent();
     }

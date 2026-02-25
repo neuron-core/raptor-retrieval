@@ -155,7 +155,7 @@ PHP applications with a powerful and flexible architecture. We provide tools for
 from LLM interfaces, to data loading, to multi-agent orchestration, to monitoring and debugging.
 In addition, we provide tutorials and other educational content to help you get started using AI Agents in your projects.
 
-**[Go to the official documentation](https://neuron.inspector.dev/)**
+**[Go to the official documentation](https://docs.neuron-ai.dev/)**
 
 [**Video Tutorial**](https://www.youtube.com/watch?v=oSA1bP_j41w)
 

@@ -23,14 +23,14 @@ Check out the example in the [examples](./examples/raptor.php) folder.
 ## Requirements
 
 - PHP: ^8.1
-- Neuron: ^2.0
+- Neuron: ^3.0
 
 ## Install RAPTOR retrieval
 
 Install the latest version of the package:
 
 ```
-composer require neuron-core/raptor-retreival
+composer require neuron-core/raptor-retrieval
 ```
 
 ## How to use RAPTOR in your agent

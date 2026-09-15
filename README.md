@@ -23,7 +23,7 @@ Check out the example in the [examples](./examples/raptor.php) folder.
 ## Requirements
 
 - PHP: ^8.1
-- Neuron: ^3.0
+- Neuron: ^4.0
 
 ## Install RAPTOR retrieval
 

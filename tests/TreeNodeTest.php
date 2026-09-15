@@ -49,7 +49,7 @@ class TreeNodeTest extends TestCase
     public function testTreeNodeWithOriginalDocument(): void
     {
         $document = new Document('Original content');
-        $document->id = 'doc-123';
+        $document->setId('doc-123');
 
         $node = new TreeNode();
         $node->id = 'node-123';

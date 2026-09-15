@@ -6,9 +6,13 @@ namespace NeuronCore\RaptorRetrieval;
 
 use NeuronAI\Chat\Messages\Message;
 use NeuronAI\Chat\Messages\UserMessage;
+use NeuronAI\Exceptions\VectorStoreException;
 use NeuronAI\Providers\AIProviderInterface;
 use NeuronAI\RAG\Document;
 use NeuronAI\RAG\Embeddings\EmbeddingsProviderInterface;
+use NeuronAI\RAG\Schema\DocumentSchemaException;
+use NeuronAI\RAG\VectorStore\Filter\FilterExpression;
+use NeuronAI\RAG\VectorStore\SearchRequest;
 use NeuronCore\RaptorRetrieval\Clustering\ClusteringInterface;
 use NeuronCore\RaptorRetrieval\Clustering\SimilarityClustering;
 use NeuronAI\RAG\Retrieval\RetrievalInterface;
@@ -33,9 +37,9 @@ use NeuronAI\RAG\VectorStore\VectorStoreInterface;
  * );
  *
  * $rag = RAG::make()
- *     ->withVectorStore($vectorStore)
- *     ->withEmbeddingsProvider($embeddingsProvider)
- *     ->withProvider($aiProvider)
+ *     ->setVectorStore($vectorStore)
+ *     ->setEmbeddingsProvider($embeddingsProvider)
+ *     ->setAiProvider($aiProvider)
  *     ->setRetrieval($raptorRetrieval);
  * ```
  */
@@ -51,14 +55,17 @@ class RaptorRetrieval implements RetrievalInterface
 
     /**
      * @return Document[]
+     * @throws VectorStoreException
      */
-    public function retrieve(Message $query): array
+    public function retrieve(Message $query, ?FilterExpression $filters = null): array
     {
         $queryText = $query->getContent();
         $queryEmbedding = $this->embeddingProvider->embedText($queryText);
 
         // Step 1: Get candidate documents using similarity search
-        $candidateDocuments = $this->vectorStore->similaritySearch($queryEmbedding);
+        $candidateDocuments = $this->vectorStore->search(
+            new SearchRequest($queryEmbedding, $filters)
+        );
 
         if (empty($candidateDocuments)) {
             return [];
@@ -163,13 +170,14 @@ class RaptorRetrieval implements RetrievalInterface
             new UserMessage("Summarize the following text, capturing the key information and themes:\n\n{$content}"),
         );
 
-        return $response->getContent();
+        return $response->message()->getContent();
     }
 
     /**
      * @param TreeNode[] $tree
      * @param array<float> $queryEmbedding
      * @return Document[]
+     * @throws DocumentSchemaException
      */
     private function collapsedTreeRetrieval(array $tree, array $queryEmbedding): array
     {
@@ -228,6 +236,9 @@ class RaptorRetrieval implements RetrievalInterface
         return $nodes;
     }
 
+    /**
+     * @throws DocumentSchemaException
+     */
     private function convertNodeToDocument(TreeNode $node): Document
     {
         // If it's an original document, return it
@@ -237,8 +248,8 @@ class RaptorRetrieval implements RetrievalInterface
 
         // Create document from summary node
         $document = new Document($node->content);
-        $document->id = $node->id;
-        $document->embedding = $node->embedding;
+        $document->setId($node->id);
+        $document->setEmbedding($node->embedding);
         $document->addMetadata('raptor_level', $node->level);
         $document->addMetadata('raptor_type', 'summary');
 

@@ -247,9 +247,7 @@ class GaussianMixtureClustering implements ClusteringInterface
 
         for ($i = 0; $i < $counter; ++$i) {
             $clusterIndex = $assignments[$i];
-            if (!isset($clusters[$clusterIndex])) {
-                $clusters[$clusterIndex] = [];
-            }
+            $clusters[$clusterIndex] ??= [];
             $clusters[$clusterIndex][] = $nodes[$i];
         }
 

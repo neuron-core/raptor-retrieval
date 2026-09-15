@@ -7,8 +7,10 @@ namespace NeuronCore\RaptorRetrieval\Tests;
 use NeuronAI\Chat\Messages\AssistantMessage;
 use NeuronAI\Chat\Messages\UserMessage;
 use NeuronAI\Providers\AIProviderInterface;
+use NeuronAI\Providers\ProviderResponse;
 use NeuronAI\RAG\Document;
 use NeuronAI\RAG\Embeddings\EmbeddingsProviderInterface;
+use NeuronAI\RAG\VectorStore\SearchRequest;
 use NeuronAI\RAG\VectorStore\VectorStoreInterface;
 use NeuronCore\RaptorRetrieval\Clustering\ClusteringInterface;
 use NeuronCore\RaptorRetrieval\RaptorRetrieval;
@@ -51,8 +53,8 @@ class RaptorRetrievalTest extends TestCase
 
         $this->vectorStore
             ->expects($this->once())
-            ->method('similaritySearch')
-            ->with($queryEmbedding)
+            ->method('search')
+            ->with($this->callback(fn (SearchRequest $r): bool => $r->embedding === $queryEmbedding))
             ->willReturn([]);
 
         $result = $this->raptorRetrieval->retrieve($query);
@@ -66,8 +68,8 @@ class RaptorRetrievalTest extends TestCase
         $queryEmbedding = [0.1, 0.2, 0.3];
 
         $document = new Document('Test document content');
-        $document->id = 'doc-1';
-        $document->embedding = [0.5, 0.6, 0.7];
+        $document->setId('doc-1');
+        $document->setEmbedding([0.5, 0.6, 0.7]);
 
         $this->embeddingProvider
             ->expects($this->once())
@@ -77,8 +79,8 @@ class RaptorRetrievalTest extends TestCase
 
         $this->vectorStore
             ->expects($this->once())
-            ->method('similaritySearch')
-            ->with($queryEmbedding)
+            ->method('search')
+            ->with($this->callback(fn (SearchRequest $r): bool => $r->embedding === $queryEmbedding))
             ->willReturn([$document]);
 
         // With single document, clustering is not called due to base case
@@ -99,12 +101,12 @@ class RaptorRetrievalTest extends TestCase
         $queryEmbedding = [0.1, 0.2, 0.3];
 
         $doc1 = new Document('Document 1 content');
-        $doc1->id = 'doc-1';
-        $doc1->embedding = [0.5, 0.6, 0.7];
+        $doc1->setId('doc-1');
+        $doc1->setEmbedding([0.5, 0.6, 0.7]);
 
         $doc2 = new Document('Document 2 content');
-        $doc2->id = 'doc-2';
-        $doc2->embedding = [0.8, 0.9, 1.0];
+        $doc2->setId('doc-2');
+        $doc2->setEmbedding([0.8, 0.9, 1.0]);
 
         $this->embeddingProvider
             ->expects($this->exactly(2))
@@ -116,8 +118,8 @@ class RaptorRetrievalTest extends TestCase
 
         $this->vectorStore
             ->expects($this->once())
-            ->method('similaritySearch')
-            ->with($queryEmbedding)
+            ->method('search')
+            ->with($this->callback(fn (SearchRequest $r): bool => $r->embedding === $queryEmbedding))
             ->willReturn([$doc1, $doc2]);
 
         // Mock clustering to create clusters that will trigger summarization
@@ -129,7 +131,7 @@ class RaptorRetrievalTest extends TestCase
                 [[$nodes[0], $nodes[1]]]);
 
         // Mock AI provider for summarization
-        $summaryResponse = new AssistantMessage('Test summary');
+        $summaryResponse = new ProviderResponse(new AssistantMessage('Test summary'));
         $this->summarizationProvider
             ->expects($this->once())
             ->method('chat')
@@ -147,8 +149,8 @@ class RaptorRetrievalTest extends TestCase
         $queryEmbedding = [0.1, 0.2, 0.3];
 
         $document = new Document('Test document content');
-        $document->id = 'doc-1';
-        $document->embedding = [0.5, 0.6]; // Different dimension - will cause exception in similarity
+        $document->setId('doc-1');
+        $document->setEmbedding([0.5, 0.6]); // Different dimension - will cause exception in similarity
 
         $this->embeddingProvider
             ->expects($this->once())
@@ -158,8 +160,8 @@ class RaptorRetrievalTest extends TestCase
 
         $this->vectorStore
             ->expects($this->once())
-            ->method('similaritySearch')
-            ->with($queryEmbedding)
+            ->method('search')
+            ->with($this->callback(fn (SearchRequest $r): bool => $r->embedding === $queryEmbedding))
             ->willReturn([$document]);
 
         // With single document, clustering is not called due to base case
@@ -191,12 +193,12 @@ class RaptorRetrievalTest extends TestCase
         $queryEmbedding = [0.1, 0.2, 0.3];
 
         $doc1 = new Document('Document 1 content');
-        $doc1->id = 'doc-1';
-        $doc1->embedding = [0.5, 0.6, 0.7];
+        $doc1->setId('doc-1');
+        $doc1->setEmbedding([0.5, 0.6, 0.7]);
 
         $doc2 = new Document('Document 2 content');
-        $doc2->id = 'doc-2';
-        $doc2->embedding = [0.8, 0.9, 1.0];
+        $doc2->setId('doc-2');
+        $doc2->setEmbedding([0.8, 0.9, 1.0]);
 
         $this->embeddingProvider
             ->method('embedText')
@@ -207,7 +209,7 @@ class RaptorRetrievalTest extends TestCase
 
         $this->vectorStore
             ->expects($this->once())
-            ->method('similaritySearch')
+            ->method('search')
             ->willReturn([$doc1, $doc2]);
 
         // Clustering will group both documents together
@@ -218,7 +220,7 @@ class RaptorRetrievalTest extends TestCase
                 return [[$nodes[0], $nodes[1]]]; // Single cluster with both nodes
             });
 
-        $summaryResponse = new AssistantMessage('Test summary');
+        $summaryResponse = new ProviderResponse(new AssistantMessage('Test summary'));
         $this->summarizationProvider
             ->expects($this->once())
             ->method('chat')
